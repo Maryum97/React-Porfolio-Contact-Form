@@ -1,39 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import * as emailjs from 'emailjs-com';
 import './App.css';
 
-import ModalApp from './components/Modal/index2';
+function App() {
+  // define states here
+  // 1. states for name, email and message
+  const [variables, setVariables] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
 
-class App extends Component {
-  // constructor here
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      email: '',
-      message: ''
-    }
-
-    this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleEmailChange = this.handleEmailChange.bind(this);
-    this.handleMessageChange = this.handleMessageChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+  // 2. states for sucess message
+  const [successMsg, setSuccessMsg] = useState('');
 
   // define handle event funtions here
-  handleNameChange = e => {
-    this.setState({ name: e.target.value })
+  const handleNameChange = e => {
+    setVariables({ name: e.target.value })
   }
 
-  handleEmailChange = e => {
-    this.setState({ email: e.target.value })
+  const handleEmailChange = e => {
+    setVariables({ email: e.target.value })
   }
 
-  handleMessageChange = e => {
-    this.setState({ message: e.target.value })
+  const handleMessageChange = e => {
+    setVariables({ message: e.target.value })
   }
 
-  handleSubmit = e => {
+  const handleSubmit = e => {
     e.preventDefault();
 
     emailjs.sendForm(
@@ -48,65 +42,71 @@ class App extends Component {
       '.contact-form',
       // 4. emailjs user ID 
       'user_IfPLcN0kuGQtkG0iT1Jzr'
-    ).then(()=> {
-      return (
-        <div>
-          <ModalApp />
-        </div>
+    ).then(() => {
+      setSuccessMsg(
+        <>
+          <div className='success-msg'>
+          </div>
+          <div className='success-msg-modal'>
+            <div className='success-msg-header'>
+              <h1>Message Sent!</h1>
+            </div>
+            <button className='close-btn'>Okay</button>
+          </div>
+        </>
       )
     }
     ).catch();
 
-    this.setState({
+    setVariables({
       name: '',
       email: '',
       message: ''
     })
   }
 
-  render() {
-    return (
-      <div className="container App">
-        <h1>
-          Contact Me
-        </h1>
-        <form className='card contact-form' onSubmit={this.handleSubmit.bind(this)}>
-          <input
-            placeholder='Full Name'
-            type='text'
-            name='name'
-            value={this.state.name}
-            onChange={this.handleNameChange}
-            required
-          ></input>
-          <br></br>
-          <input
-            placeholder='Email Address'
-            type='text'
-            name='email'
-            value={this.state.email}
-            onChange={this.handleEmailChange}
-            required
-          ></input>
-          <br></br>
-          <textarea
-            placeholder='Type Your Message Here...'
-            type='textarea'
-            name='message'
-            value={this.state.message}
-            onChange={this.handleMessageChange}
-            required
-          ></textarea>
-          <br></br>
-          <button
-            className='btn-warning'
-          >
-            Submit
-          </button>
-        </form>
-      </div>
-    );
-  }
+  return (
+    <div className="container App">
+      <h1>
+        Contact Me
+      </h1>
+      <form className='card contact-form' onSubmit={handleSubmit}>
+        <input
+          placeholder='Full Name'
+          type='text'
+          name='name'
+          value={variables.name}
+          onChange={handleNameChange}
+          required
+        ></input>
+        <br></br>
+        <input
+          placeholder='Email Address'
+          type='text'
+          name='email'
+          value={variables.email}
+          onChange={handleEmailChange}
+          required
+        ></input>
+        <br></br>
+        <textarea
+          placeholder='Type Your Message Here...'
+          type='textarea'
+          name='message'
+          value={variables.message}
+          onChange={handleMessageChange}
+          required
+        ></textarea>
+        <br></br>
+        <button
+          className='btn-warning'
+        >
+          Submit
+        </button>
+      </form>
+      {successMsg}
+    </div>
+  );
 }
 
 export default App;

@@ -12,3 +12,41 @@
   margin-right: auto;
   margin-top: 30px;
 }
+
+.success-msg {
+  position: fixed;
+  padding: 30%;
+  background-color: rgba(0, 0, 0, 0.315);
+  width: 130%;
+  margin-left: -30%;
+  margin-top: -65%;
+  height: 2000px;
+}
+
+.success-msg-modal {
+  background-color: blueviolet;
+  padding: 2%;
+  position: fixed;
+  z-index: 30;
+  margin-left: 25%;
+  margin-top: -10%;
+}
+
+.success-msg-header {
+  background-color: white;
+  padding: 2%;
+}
+
+.close-btn {
+  /* position: fixed; */
+  padding: 2%;
+  margin-top: 30px;
+  color: white;
+  background-color: tomato;
+}
+
+@media screen and (max-width: 960px) {
+  .success-msg-modal {
+    margin-left: 28%;
+  }
+}
