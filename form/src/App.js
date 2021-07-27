@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import * as emailjs from 'emailjs-com';
 import './App.css';
 
+import ModalApp from './components/Modal/index2';
+
 class App extends Component {
   // constructor here
   constructor(props) {
@@ -13,8 +15,8 @@ class App extends Component {
     }
 
     this.handleNameChange = this.handleNameChange.bind(this);
-    // this.handleEmailChange = this.handleEmailChange.bind(this);
-    // this.handleMessageChange = this.handleMessageChange.bind(this);
+    this.handleEmailChange = this.handleEmailChange.bind(this);
+    this.handleMessageChange = this.handleMessageChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -46,8 +48,13 @@ class App extends Component {
       '.contact-form',
       // 4. emailjs user ID 
       'user_IfPLcN0kuGQtkG0iT1Jzr'
-    ).then(
-        alert ('Message sent!')
+    ).then(()=> {
+      return (
+        <div>
+          <ModalApp />
+        </div>
+      )
+    }
     ).catch();
 
     this.setState({
@@ -70,6 +77,7 @@ class App extends Component {
             name='name'
             value={this.state.name}
             onChange={this.handleNameChange}
+            required
           ></input>
           <br></br>
           <input
@@ -78,6 +86,7 @@ class App extends Component {
             name='email'
             value={this.state.email}
             onChange={this.handleEmailChange}
+            required
           ></input>
           <br></br>
           <textarea
@@ -86,6 +95,7 @@ class App extends Component {
             name='message'
             value={this.state.message}
             onChange={this.handleMessageChange}
+            required
           ></textarea>
           <br></br>
           <button
