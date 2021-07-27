@@ -1,0 +1,14 @@
+.App {
+  text-align: center;
+  margin-top: 100px;
+  background-color: rgb(90, 221, 64);
+  padding: 5%;
+}
+
+.card {
+  padding: 6%;
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+}
